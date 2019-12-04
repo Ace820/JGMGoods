@@ -67,6 +67,7 @@ public class Main {
         }
     }
     private static boolean lock = false;
+    private static String fileDir = null;
     private static boolean isOver() {
 return false;
     }
@@ -79,6 +80,20 @@ return false;
         {
             print(line);
         }
+    }
+
+    private static boolean isTop() throws Exception{
+        System.out.print("check top ");
+        BufferedReader br=new BufferedReader(new InputStreamReader(Runtime.getRuntime().exec(
+                "adb shell \"dumpsys activity -p com.tencent.jgm |grep top-activity \"").getInputStream()));
+        String line=br.readLine();
+        print(line != null);
+
+//        while((line=br.readLine())!=null)
+//        {
+//            print(line);
+//        }
+        return (line != null );
     }
 
     private static void reLogin() throws Exception{
@@ -142,10 +157,13 @@ return false;
     }
     static int tt=0;
     private static void getImage() throws Exception {
+        while (!isTop()) {
+            Thread.sleep(1000);
+        }
         BufferedImage bufImage = ImageIO.read(Runtime.getRuntime().exec("adb exec-out screencap -p").getInputStream());
-//        ImageIO.write(bufImage.getSubimage(620,1730,70,50),"PNG",new File("D:\\temp\\__1.png"));
-        ImageIO.write(bufImage.getSubimage(780,1660,70,50),"PNG",new File("D:\\temp\\__2" +"_" +tt+ ".png"));
-        ImageIO.write(bufImage.getSubimage(930,1560,70,50),"PNG",new File("D:\\temp\\__3" +"_" +tt+" .png"));
+        ImageIO.write(bufImage.getSubimage(620,1730,70,50),"PNG",new File(fileDir +"__2" +"_" +tt+ ".png"));
+        ImageIO.write(bufImage.getSubimage(780,1660,70,50),"PNG",new File(fileDir +"__2" +"_" +tt+ ".png"));
+        ImageIO.write(bufImage.getSubimage(930,1560,70,50),"PNG",new File(fileDir +"__3" +"_" +tt+" .png"));
         tt++;
 //        ImageIO.write(bufImage.getSubimage(350,1850,70,50),"PNG",new File("D:\\temp\\___.png"));
         item1Md5 = getMd5(bufImage.getSubimage(620,1730,70,50));
@@ -185,6 +203,12 @@ return false;
    }
     public static void main(String[] args) {
         showUI();
+        File dir = new File("images");
+        if (!dir.exists())
+            dir.mkdir();
+
+        fileDir = System.getProperty("os.name").toLowerCase().startsWith("win") ? "images\\":"images/";
+        print("Current dir :" + System.getProperty("user.dir"));
         try {
             while (true) {
                 getImage();
