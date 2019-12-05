@@ -46,6 +46,7 @@ public class Main {
     };
     private static final String trainArrived = "8c7b5e3f9540bde5d3e28dfb9967a713";
     private static final String trainWaiting = "6d4eae78b80354d8ce644712d3bbc0ef";
+    private static final String trainLeaving = "7c9d6cad372de9f2aab785dcfcab847e";
     private static String statusMd5 = null;
     private static String item1Md5 = null;
     private static String item2Md5 = null;
@@ -72,14 +73,17 @@ public class Main {
 return false;
     }
 
-    public static void exec(String cmd) throws Exception{
+    public static String exec(String cmd) throws Exception{
         BufferedReader br=new BufferedReader(new InputStreamReader(Runtime.getRuntime().exec(cmd).getInputStream()));
         String line=null;
+        String result = "";
 
         while((line=br.readLine())!=null)
         {
+            result += line;
             print(line);
         }
+        return result;
     }
 
     private static boolean isTop() throws Exception{
@@ -126,7 +130,8 @@ return false;
         return md5Sum.toString();
     }
     private static boolean isTrainArrived() {
-        return (!statusMd5.equals(trainWaiting));
+//        return (!statusMd5.equals(trainWaiting));
+        return (!(statusMd5.equals(trainWaiting) || item3Md5.equals(trainLeaving)));
     }
     private static boolean isAllEmpty() throws Exception{
         boolean empty = (item1Md5.equals(emptyMd5[0]) && item2Md5.equals(emptyMd5[1]) && item3Md5.equals(emptyMd5[2]));
@@ -136,7 +141,17 @@ return false;
         }
         return empty;
     }
+    private static void updateCount() throws Exception{
+        String count = exec("adb shell getprop debug.jgm.count");
+        int countInt = 0;
+        if(!count.equals(""))
+            countInt = Integer.parseInt(count);
+        countInt ++;
+        print("Received " + countInt + " Goods");
+        exec("adb shell setprop debug.jgm.count " + countInt);
+    }
     private static void update(String pos1,String pos2) throws Exception{
+        updateCount();
         exec("adb shell input swipe "+ pos1 + " " + pos2);
     }
     private static void checkItem() throws Exception{
@@ -161,7 +176,9 @@ return false;
             Thread.sleep(1000);
         }
         BufferedImage bufImage = ImageIO.read(Runtime.getRuntime().exec("adb exec-out screencap -p").getInputStream());
-        ImageIO.write(bufImage.getSubimage(620,1730,70,50),"PNG",new File(fileDir +"__2" +"_" +tt+ ".png"));
+//        ImageIO.write(bufImage,"PNG",new File(fileDir +"__0" +"_" +tt+ ".png"));
+        ImageIO.write(bufImage.getSubimage(0,1400,1080,600),"PNG",new File(fileDir +"__0" +"_" +tt+ ".png"));
+//        ImageIO.write(bufImage.getSubimage(620,1730,70,50),"PNG",new File(fileDir +"__1" +"_" +tt+ ".png"));
         ImageIO.write(bufImage.getSubimage(780,1660,70,50),"PNG",new File(fileDir +"__2" +"_" +tt+ ".png"));
         ImageIO.write(bufImage.getSubimage(930,1560,70,50),"PNG",new File(fileDir +"__3" +"_" +tt+" .png"));
         tt++;
@@ -212,7 +229,7 @@ return false;
         try {
             while (true) {
                 getImage();
-                Thread.sleep(2);
+                Thread.sleep(1500);
             }
         } catch (Exception e) {
             e.printStackTrace();
