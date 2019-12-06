@@ -74,6 +74,10 @@ return false;
     }
 
     public static String exec(String cmd) throws Exception{
+        while (!isTop()) {
+            print("not Top,Still Waiting");
+            Thread.sleep(1000);
+        }
         BufferedReader br=new BufferedReader(new InputStreamReader(Runtime.getRuntime().exec(cmd).getInputStream()));
         String line=null;
         String result = "";
@@ -87,11 +91,12 @@ return false;
     }
 
     private static boolean isTop() throws Exception{
-        System.out.print("check top ");
+//        System.out.print("check top ");
+        Runtime.getRuntime().exec("adb wait-for-device");
         BufferedReader br=new BufferedReader(new InputStreamReader(Runtime.getRuntime().exec(
                 "adb shell \"dumpsys activity -p com.tencent.jgm |grep top-activity \"").getInputStream()));
         String line=br.readLine();
-        print(line != null);
+//        print(line != null);
 
 //        while((line=br.readLine())!=null)
 //        {
@@ -204,7 +209,7 @@ return false;
        JFrame frame=new JFrame("家国梦拉货");    //创建Frame窗口
        frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
        JPanel jp=new JPanel();    //创建一个JPanel对象
-       jta=new JTextArea("",20,40);
+       jta=new JTextArea("",20,35);
        jta.setLineWrap(true);    //设置文本域中的文本为自动换行
        jta.setForeground(Color.BLACK);    //设置组件的背景色
        jta.setFont(new Font("楷体",Font.BOLD,16));    //修改字体样式
