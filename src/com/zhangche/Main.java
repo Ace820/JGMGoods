@@ -78,7 +78,9 @@ return false;
             print("not Top,Still Waiting");
             Thread.sleep(1000);
         }
-        BufferedReader br=new BufferedReader(new InputStreamReader(Runtime.getRuntime().exec(cmd).getInputStream()));
+        Process p = Runtime.getRuntime().exec(cmd);
+        BufferedReader br=new BufferedReader(new InputStreamReader(p.getInputStream()));
+        p.waitFor();
         String line=null;
         String result = "";
 
@@ -92,7 +94,7 @@ return false;
 
     private static boolean isTop() throws Exception{
 //        System.out.print("check top ");
-        Runtime.getRuntime().exec("adb wait-for-device");
+        Runtime.getRuntime().exec("adb wait-for-device").waitFor();
         BufferedReader br=new BufferedReader(new InputStreamReader(Runtime.getRuntime().exec(
                 "adb shell \"dumpsys activity -p com.tencent.jgm |grep top-activity \"").getInputStream()));
         String line=br.readLine();
@@ -182,10 +184,10 @@ return false;
         }
         BufferedImage bufImage = ImageIO.read(Runtime.getRuntime().exec("adb exec-out screencap -p").getInputStream());
 //        ImageIO.write(bufImage,"PNG",new File(fileDir +"__0" +"_" +tt+ ".png"));
-        ImageIO.write(bufImage.getSubimage(0,1400,1080,600),"PNG",new File(fileDir +"__0" +"_" +tt+ ".png"));
+//        ImageIO.write(bufImage.getSubimage(0,1400,1080,600),"PNG",new File(fileDir +"__0" +"_" +tt+ ".png"));
 //        ImageIO.write(bufImage.getSubimage(620,1730,70,50),"PNG",new File(fileDir +"__1" +"_" +tt+ ".png"));
-        ImageIO.write(bufImage.getSubimage(780,1660,70,50),"PNG",new File(fileDir +"__2" +"_" +tt+ ".png"));
-        ImageIO.write(bufImage.getSubimage(930,1560,70,50),"PNG",new File(fileDir +"__3" +"_" +tt+" .png"));
+        ImageIO.write(bufImage.getSubimage(780,1660,70,50),"PNG",new File(fileDir +"2" +"_" +tt+ ".png"));
+        ImageIO.write(bufImage.getSubimage(930,1560,70,50),"PNG",new File(fileDir +"3" +"_" +tt+" .png"));
         tt++;
 //        ImageIO.write(bufImage.getSubimage(350,1850,70,50),"PNG",new File("D:\\temp\\___.png"));
         item1Md5 = getMd5(bufImage.getSubimage(620,1730,70,50));
@@ -202,6 +204,8 @@ return false;
    }
    protected static void print(Object line) {
         jta.append(line.toString() + "\n");
+//        jta.selectAll();
+        jta.setCaretPosition(jta.getDocument().getLength());
         System.out.println(line.toString());
    }
    private static JTextArea jta;
@@ -213,6 +217,7 @@ return false;
        jta.setLineWrap(true);    //设置文本域中的文本为自动换行
        jta.setForeground(Color.BLACK);    //设置组件的背景色
        jta.setFont(new Font("楷体",Font.BOLD,16));    //修改字体样式
+       jta.setEditable(false);
 //       jta.setBackground(Color.LIGHT_GRAY);    //设置按钮背景色
        JScrollPane jsp=new JScrollPane(jta);    //将文本域放入滚动窗口
        Dimension size=jta.getPreferredSize();    //获得文本域的首选大小
@@ -232,6 +237,12 @@ return false;
         fileDir = System.getProperty("os.name").toLowerCase().startsWith("win") ? "images\\":"images/";
         print("Current dir :" + System.getProperty("user.dir"));
         try {
+//            print("connect 100");
+//            exec("adb connect 192.168.156.100:5555");
+//            print("connect 101");
+//            exec("adb connect 192.168.156.101:5555");
+//            print("connect done");
+
             while (true) {
                 getImage();
                 Thread.sleep(1500);
