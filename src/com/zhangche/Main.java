@@ -25,7 +25,7 @@ public class Main {
             new Item(11,"复兴公馆","820 1675","250 1300","",1),
             new Item(12,"复兴公馆","975 1600","250 1300","",1),
     };
-    private Item[] rareItems = {
+    private static Item[] rareItems = {
             new Item(1,"零件厂","670 1760","830 460","091e9f9e23d1b6de5ef47c49df6a9f9f",1),
             new Item(2,"零件厂","820 1675","830 460","5c40b9fcab7949d54be8ac6763f58ddf",1),
             new Item(3,"零件厂","975 1600","830 460","b81ee203989ea0e68487a67c8debb6aa",1),
@@ -149,13 +149,13 @@ return false;
         return empty;
     }
     private static void updateCount() throws Exception{
-        String count = exec("adb shell getprop debug.jgm.count");
+        String count = exec("adb shell getprop debug.jgm.`date +%y%m%d`.count");
         int countInt = 0;
         if(!count.equals(""))
             countInt = Integer.parseInt(count);
         countInt ++;
         print("Received " + countInt + " Goods");
-        exec("adb shell setprop debug.jgm.count " + countInt);
+        exec("adb shell setprop debug.jgm.`date +%y%m%d`.count " + countInt);
     }
     private static void update(String pos1,String pos2) throws Exception{
         updateCount();
@@ -172,6 +172,13 @@ return false;
                 hasTarget = true;
             }
         }
+//        for (Item item :rareItems) {
+//            if (item.md5.equals(item1Md5)|| item.md5.equals(item2Md5) || item.md5.equals(item3Md5)) {
+//                print("find " + item.name + ",at position " + (item.id % 4));
+//                update(item.trainPos,item.buildPos);
+//                hasTarget = true;
+//            }
+//        }
         if (!hasTarget) {
             print("no item found,relogin");
             reLogin();
@@ -236,19 +243,19 @@ return false;
 
         fileDir = System.getProperty("os.name").toLowerCase().startsWith("win") ? "images\\":"images/";
         print("Current dir :" + System.getProperty("user.dir"));
-        try {
+        while (true) {
+            try {
 //            print("connect 100");
 //            exec("adb connect 192.168.156.100:5555");
 //            print("connect 101");
 //            exec("adb connect 192.168.156.101:5555");
 //            print("connect done");
 
-            while (true) {
                 getImage();
                 Thread.sleep(1500);
+            } catch (Exception e) {
+                e.printStackTrace();
             }
-        } catch (Exception e) {
-            e.printStackTrace();
         }
 	// write your code here
     }
