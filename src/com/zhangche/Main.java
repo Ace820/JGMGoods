@@ -193,9 +193,9 @@ return false;
 //        ImageIO.write(bufImage,"PNG",new File(fileDir +"__0" +"_" +tt+ ".png"));
 //        ImageIO.write(bufImage.getSubimage(0,1400,1080,600),"PNG",new File(fileDir +"__0" +"_" +tt+ ".png"));
 //        ImageIO.write(bufImage.getSubimage(620,1730,70,50),"PNG",new File(fileDir +"__1" +"_" +tt+ ".png"));
-        ImageIO.write(bufImage.getSubimage(780,1660,70,50),"PNG",new File(fileDir +"2" +"_" +tt+ ".png"));
-        ImageIO.write(bufImage.getSubimage(930,1560,70,50),"PNG",new File(fileDir +"3" +"_" +tt+" .png"));
-        tt++;
+//        ImageIO.write(bufImage.getSubimage(780,1660,70,50),"PNG",new File(fileDir +"2" +"_" +tt+ ".png"));
+//        ImageIO.write(bufImage.getSubimage(930,1560,70,50),"PNG",new File(fileDir +"3" +"_" +tt+" .png"));
+//        tt++;
 //        ImageIO.write(bufImage.getSubimage(350,1850,70,50),"PNG",new File("D:\\temp\\___.png"));
         item1Md5 = getMd5(bufImage.getSubimage(620,1730,70,50));
         item2Md5 = getMd5(bufImage.getSubimage(780,1660,70,50));
@@ -237,12 +237,12 @@ return false;
    }
     public static void main(String[] args) {
         showUI();
-        File dir = new File("images");
-        if (!dir.exists())
-            dir.mkdir();
-
-        fileDir = System.getProperty("os.name").toLowerCase().startsWith("win") ? "images\\":"images/";
-        print("Current dir :" + System.getProperty("user.dir"));
+//        File dir = new File("images");
+//        if (!dir.exists())
+//            dir.mkdir();
+//
+//        fileDir = System.getProperty("os.name").toLowerCase().startsWith("win") ? "images\\":"images/";
+//        print("Current dir :" + System.getProperty("user.dir"));
         while (true) {
             try {
 //            print("connect 100");
