@@ -159,6 +159,7 @@ return false;
     }
     private static void update(String pos1,String pos2) throws Exception{
         updateCount();
+        exec("adb shell input swipe 850 400 850 1600 100");
         exec("adb shell input swipe "+ pos1 + " " + pos2);
     }
     private static void checkItem() throws Exception{
