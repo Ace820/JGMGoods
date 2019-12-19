@@ -108,12 +108,16 @@ return false;
     }
 
     private static void reLogin() throws Exception{
-        exec("adb shell input tap 50 50");
-        Thread.sleep(500);
-        exec("adb shell input tap 300 1600");
-        Thread.sleep(3500);
-        exec("adb shell input tap 300 1900");
-        Thread.sleep(10000);
+//        exec("adb shell input tap 50 50");
+//        Thread.sleep(500);
+//        exec("adb shell input tap 300 1600");
+//        Thread.sleep(3500);
+//        exec("adb shell input tap 300 1900");
+//        Thread.sleep(10000);
+        exec("adb shell \"input keyevent KEYCODE_APP_SWITCH && sleep 1 && input swipe 600 1400 600 200 200\"");
+        Thread.sleep(1000);
+        Runtime.getRuntime().exec("adb shell am start -n com.tencent.jgm/.MainActivity");
+        Thread.sleep(20000);
     }
 
     private static String getMd5(BufferedImage image) throws  Exception{
