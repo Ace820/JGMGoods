@@ -11,33 +11,61 @@ import java.io.InputStreamReader;
 import java.security.MessageDigest;
 
 public class Main {
+    static String[] trainPos = {
+            "670 1760",
+            "820 1675",
+            "975 1600",
+    };
+    static String[] buildPos = {
+            "250 750",
+            "480 620",
+            "830 460",
+            "300 1050",
+            "550 900",
+            "850 800",
+            "250 1300",
+            "550 1200",
+            "850 1100",
+    };
     private static Item[] finalItems = {
-            new Item(1,"强国煤业","670 1760","250 750","fadc6cdd5eb4b3de459165a01c370dde",1),
-            new Item(2,"强国煤业","820 1675","250 750","8f17a25f5b858b7aca4b2133cb1e44e4",1),
-            new Item(3,"强国煤业","975 1600","250 750","284e03e751b61917812673b0f860c70e",1),
-            new Item(4,"企鹅机械","670 1760","480 620","3503faa47f7214f52043b192cb012d3c",1),
-            new Item(5,"企鹅机械","820 1675","480 620","9dfeaed0ad31d8a84a1b3b3b39b2ce9d",1),
-            new Item(6,"企鹅机械","975 1600","480 620","a2d1000af8c004aba29c01909f043a3a",1),
-            new Item(7,"民食斋","670 1760","300 1050","b940c84c15d89828b864ba2619473239",1),
-            new Item(8,"民食斋","820 1675","300 1050","974e68c82f8f93a07c98dd2197092c41",1),
-            new Item(9,"民食斋","975 1600","300 1050","3e8fc56f4757bacc15b30e0b17c383a9",1),
-            new Item(10,"复兴公馆","670 1760","250 1300","d4d4a08070d09a1107935b15e4065976",1),
-            new Item(11,"复兴公馆","820 1675","250 1300","",1),
-            new Item(12,"复兴公馆","975 1600","250 1300","",1),
+            new Item(1 ,"强国煤业",trainPos[0],buildPos[0],"fadc6cdd5eb4b3de459165a01c370dde",1),
+            new Item(2 ,"强国煤业",trainPos[1],buildPos[0],"8f17a25f5b858b7aca4b2133cb1e44e4",1),
+            new Item(3 ,"强国煤业",trainPos[2],buildPos[0],"284e03e751b61917812673b0f860c70e",1),
+            new Item(4 ,"企鹅机械",trainPos[0],buildPos[1],"3503faa47f7214f52043b192cb012d3c",1),
+            new Item(5 ,"企鹅机械",trainPos[1],buildPos[1],"9dfeaed0ad31d8a84a1b3b3b39b2ce9d",1),
+            new Item(6 ,"企鹅机械",trainPos[2],buildPos[1],"a2d1000af8c004aba29c01909f043a3a",1),
+            new Item(7 ," 民食斋 ",trainPos[0],buildPos[3],"b940c84c15d89828b864ba2619473239",1),
+            new Item(8 ," 民食斋 ",trainPos[1],buildPos[3],"974e68c82f8f93a07c98dd2197092c41",1),
+            new Item(9 ," 民食斋 ",trainPos[2],buildPos[3],"3e8fc56f4757bacc15b30e0b17c383a9",1),
+            new Item(10,"人民石油",trainPos[0],buildPos[2],"1343f9fbc7c6cc4407184d69ac9fe475",1),
+            new Item(11,"人民石油",trainPos[1],buildPos[2],"7f778b8e8a7a9cc3457c682b9a28992a",1),
+            new Item(12,"人民石油",trainPos[2],buildPos[2],"d75de3ae9631318347f027e2e8a1cd89",1),
+            new Item(10,"空中别墅",trainPos[0],buildPos[6],"745e57d3deb6c330aa3e1a2bd675c9fc",1),
+            new Item(11,"空中别墅",trainPos[1],buildPos[6],"25c1c97b65e3d54bb3776247e15f0749",1),
+            new Item(12,"空中别墅",trainPos[2],buildPos[6],"",1),
+            new Item(10,"复兴公馆",trainPos[0],buildPos[7],"d4d4a08070d09a1107935b15e4065976",1),
+            new Item(11,"复兴公馆",trainPos[1],buildPos[7],"2ee1707990f13dba19f4d5d4e826e446",1),
+            new Item(12,"复兴公馆",trainPos[2],buildPos[7],"",1),
     };
     private static Item[] rareItems = {
-            new Item(1,"零件厂","670 1760","830 460","091e9f9e23d1b6de5ef47c49df6a9f9f",1),
-            new Item(2,"零件厂","820 1675","830 460","5c40b9fcab7949d54be8ac6763f58ddf",1),
-            new Item(3,"零件厂","975 1600","830 460","b81ee203989ea0e68487a67c8debb6aa",1),
-            new Item(4,"商贸中心","670 1760","550 900","72fd37c45fef11c52a8a176e84dfed15",1),
-            new Item(5,"商贸中心","820 1675","550 900","0c8e46237d215c52376c1b3dad439735",1),
-            new Item(6,"商贸中心","975 1600","550 900","3038c0bf85440eafcd5af84f4b4af827",1),
-            new Item(7,"追梦快递","670 1760","850 800","bc0805fc315c84c165169be26ebde3c7",1),
-            new Item(8,"追梦快递","820 1675","850 800","6f4c2485ae1682e7bf14b1e17ac55ea3",1),
-            new Item(9,"追梦快递","975 1600","850 800","c9c68c12ba1d61a41551e84d10e886c1",1),
-            new Item(10,"花园洋房","670 1760","550 1200","10d6aef420f612aa57dfc6821b87f1cf",1),
-            new Item(11,"花园洋房","820 1675","550 1200","561695226f5c810411ca73564ef68a41",1),
-            new Item(12,"花园洋房","975 1600","550 1200","",1),
+            new Item(1 ," 零件厂 ",trainPos[0],buildPos[2],"091e9f9e23d1b6de5ef47c49df6a9f9f",1),
+            new Item(2 ," 零件厂 ",trainPos[1],buildPos[2],"5c40b9fcab7949d54be8ac6763f58ddf",1),
+            new Item(3 ," 零件厂 ",trainPos[2],buildPos[2],"b81ee203989ea0e68487a67c8debb6aa",1),
+            new Item(4 ,"商贸中心",trainPos[0],buildPos[4],"72fd37c45fef11c52a8a176e84dfed15",1),
+            new Item(5 ,"商贸中心",trainPos[1],buildPos[4],"0c8e46237d215c52376c1b3dad439735",1),
+            new Item(6 ,"商贸中心",trainPos[2],buildPos[4],"3038c0bf85440eafcd5af84f4b4af827",1),
+            new Item(7 ,"追梦快递",trainPos[0],buildPos[5],"bc0805fc315c84c165169be26ebde3c7",1),
+            new Item(8 ,"追梦快递",trainPos[1],buildPos[5],"6f4c2485ae1682e7bf14b1e17ac55ea3",1),
+            new Item(9 ,"追梦快递",trainPos[2],buildPos[5],"c9c68c12ba1d61a41551e84d10e886c1",1),
+            new Item(10,"花园洋房",trainPos[0],buildPos[7],"10d6aef420f612aa57dfc6821b87f1cf",1),
+            new Item(11,"花园洋房",trainPos[1],buildPos[7],"561695226f5c810411ca73564ef68a41",1),
+            new Item(12,"花园洋房",trainPos[2],buildPos[7],"",1),
+            new Item(13,"中式小楼",trainPos[0],buildPos[8],"ba033bd42d85bdd76d41b82853d9c6ba",1),
+            new Item(14,"中式小楼",trainPos[1],buildPos[8],"6c3b99a247e08d3e3bef0444ee32e4e2",1),
+            new Item(15,"中式小楼",trainPos[2],buildPos[8],"",1),
+            new Item(16,"小型公寓",trainPos[0],buildPos[8],"e4f2dd88929e4013064784363a1882c5",1),
+            new Item(17,"小型公寓",trainPos[1],buildPos[8],"65c17eb59b29c65cee4fe66cd0a39681",1),
+            new Item(18,"小型公寓",trainPos[2],buildPos[8],"6607ab8581154b617b85d620d60e0663",1),
     };
     private static String[] emptyMd5 = {
             "011251b4b68cc4da6a310f014fd1eada",
@@ -51,6 +79,15 @@ public class Main {
     private static String item1Md5 = null;
     private static String item2Md5 = null;
     private static String item3Md5 = null;
+    private static String item1CountMd5 = null;
+    private static String item2CountMd5 = null;
+    private static String item3CountMd5 = null;
+    private static BufferedImage item1CountImg = null;
+    private static BufferedImage item2CountImg = null;
+    private static BufferedImage item3CountImg = null;
+    private static BufferedImage item1Img = null;
+    private static BufferedImage item2Img = null;
+    private static BufferedImage item3Img = null;
     protected static class Item {
         public int id;
         public String name = null;
@@ -92,6 +129,7 @@ return false;
         return result;
     }
 
+    boolean isDeviceOnline = false;
     private static boolean isTop() throws Exception{
 //        System.out.print("check top ");
         Runtime.getRuntime().exec("adb wait-for-device").waitFor();
@@ -160,12 +198,20 @@ return false;
         countInt ++;
         print("Received " + countInt + " Goods");
         exec("adb shell setprop debug.jgm.`date +%y%m%d`.count " + countInt);
+        if (countInt > 530 ) {
+            exec("adb shell setprop debug.jgm.stop 1");
+            Thread.sleep(5000);
+            System.exit(0);
+        }
     }
     private static void update(String pos1,String pos2) throws Exception{
         updateCount();
-        exec("adb shell input swipe 850 400 850 1600 100");
+//        exec("adb shell input swipe 850 400 850 1600 100");
+        exec("adb shell input swipe "+ pos1 + " " + pos2);
+        exec("adb shell input swipe "+ pos1 + " " + pos2);
         exec("adb shell input swipe "+ pos1 + " " + pos2);
     }
+    static boolean isReChecked = false;
     private static void checkItem() throws Exception{
         if (isAllEmpty())
             return;
@@ -177,34 +223,50 @@ return false;
                 hasTarget = true;
             }
         }
-//        for (Item item :rareItems) {
-//            if (item.md5.equals(item1Md5)|| item.md5.equals(item2Md5) || item.md5.equals(item3Md5)) {
-//                print("find " + item.name + ",at position " + (item.id % 4));
-//                update(item.trainPos,item.buildPos);
-//                hasTarget = true;
-//            }
-//        }
-        if (!hasTarget) {
-            print("no item found,relogin");
-            reLogin();
+        for (Item item :rareItems) {
+            if (item.md5.equals(item1Md5)|| item.md5.equals(item2Md5) || item.md5.equals(item3Md5)) {
+                print("find " + item.name + ",at position " + (item.id % 4));
+                update(item.trainPos,item.buildPos);
+                hasTarget = true;
+            }
         }
+        if (!hasTarget) {
+//            print("no item found,relogin");
+            print("Rechecked,Relogin = " + isReChecked);
+            if (isReChecked) {
+                reLogin();
+                ImageIO.write(item1Img,"PNG",new File(fileDir +"1" +"_" +item1Md5+".png"));
+                ImageIO.write(item2Img,"PNG",new File(fileDir +"2" +"_" +item2Md5+".png"));
+                ImageIO.write(item3Img,"PNG",new File(fileDir +"3" +"_" +item3Md5+".png"));
+                isReChecked = false;
+            } else {
+                Thread.sleep(2000);
+                isReChecked = true;
+                getImage();
+            }
+        } else
+            isReChecked = false;
+//        ImageIO.write(item1CountImg,"PNG",new File(fileDir +"Count1 " +"_" +item1CountMd5+" .png"));
+//        ImageIO.write(item2CountImg,"PNG",new File(fileDir +"Count2 " +"_" +item2CountMd5+" .png"));
+//        ImageIO.write(item3CountImg,"PNG",new File(fileDir +"Count3 " +"_" +item3CountMd5+" .png"));
     }
-    static int tt=0;
     private static void getImage() throws Exception {
         while (!isTop()) {
-            Thread.sleep(1000);
+            Thread.sleep(5000);
         }
         BufferedImage bufImage = ImageIO.read(Runtime.getRuntime().exec("adb exec-out screencap -p").getInputStream());
-//        ImageIO.write(bufImage,"PNG",new File(fileDir +"__0" +"_" +tt+ ".png"));
-//        ImageIO.write(bufImage.getSubimage(0,1400,1080,600),"PNG",new File(fileDir +"__0" +"_" +tt+ ".png"));
-//        ImageIO.write(bufImage.getSubimage(620,1730,70,50),"PNG",new File(fileDir +"__1" +"_" +tt+ ".png"));
-//        ImageIO.write(bufImage.getSubimage(780,1660,70,50),"PNG",new File(fileDir +"2" +"_" +tt+ ".png"));
-//        ImageIO.write(bufImage.getSubimage(930,1560,70,50),"PNG",new File(fileDir +"3" +"_" +tt+" .png"));
-//        tt++;
-//        ImageIO.write(bufImage.getSubimage(350,1850,70,50),"PNG",new File("D:\\temp\\___.png"));
-        item1Md5 = getMd5(bufImage.getSubimage(620,1730,70,50));
-        item2Md5 = getMd5(bufImage.getSubimage(780,1660,70,50));
-        item3Md5 = getMd5(bufImage.getSubimage(930,1560,70,50));
+        item1Img = bufImage.getSubimage(620,1730,70,50);
+        item2Img = bufImage.getSubimage(780,1660,70,50);
+        item3Img = bufImage.getSubimage(930,1560,70,50);
+        item1CountImg = bufImage.getSubimage(705,1780,30,40);
+        item2CountImg = bufImage.getSubimage(860,1698,30,40);
+        item3CountImg = bufImage.getSubimage(1010,1610,30,40);
+        item1CountMd5 = getMd5(item1CountImg);
+        item2CountMd5 = getMd5(item2CountImg);
+        item3CountMd5 = getMd5(item3CountImg);
+        item1Md5 = getMd5(item1Img);
+        item2Md5 = getMd5(item2Img);
+        item3Md5 = getMd5(item3Img);
         statusMd5 = getMd5(bufImage.getSubimage(350,1850,70,50));
 
         if (isTrainArrived()) {
@@ -242,12 +304,12 @@ return false;
    }
     public static void main(String[] args) {
         showUI();
-//        File dir = new File("images");
-//        if (!dir.exists())
-//            dir.mkdir();
-//
-//        fileDir = System.getProperty("os.name").toLowerCase().startsWith("win") ? "images\\":"images/";
-//        print("Current dir :" + System.getProperty("user.dir"));
+        File dir = new File("images");
+        if (!dir.exists())
+            dir.mkdir();
+
+        fileDir = System.getProperty("os.name").toLowerCase().startsWith("win") ? "images\\":"images/";
+        print("Current dir :" + System.getProperty("user.dir"));
         while (true) {
             try {
 //            print("connect 100");
@@ -256,12 +318,13 @@ return false;
 //            exec("adb connect 192.168.156.101:5555");
 //            print("connect done");
 
+//                exec("adb shell input swipe 850 400 850 1600 100");
                 getImage();
-                Thread.sleep(1500);
+//                Thread.sleep(1500);
             } catch (Exception e) {
                 e.printStackTrace();
             }
         }
-	// write your code here
+    // write your code here
     }
 }
